@@ -4,7 +4,7 @@ import { friends, circles } from '../data/mockData';
 import { Icons } from '../icons/Icons';
 import BottomSheet from './BottomSheet';
 
-export default function MapView({ activeFilter, onFilterChange, onCheckIn, checkedIn, onShowPrivacy }) {
+export default function MapView({ activeFilter, onFilterChange, onCheckIn, checkedIn, onShowPrivacy, isDesktop }) {
   const [selectedPin, setSelectedPin] = useState(null);
   const mapRef = useRef(null);
   const mapInstanceRef = useRef(null);
@@ -115,24 +115,37 @@ export default function MapView({ activeFilter, onFilterChange, onCheckIn, check
 
   return (
     <div className="h-full flex flex-col">
-      {/* Top Bar */}
-      <div className="bg-cream/95 backdrop-blur-md px-4 pt-4 pb-2 z-20">
-        <div className="flex items-center justify-between mb-2">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-terracotta/10 flex items-center justify-center text-terracotta">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" fill="none" opacity="0.3"/></svg>
+      {/* Top Bar — hide header on desktop since sidebar has it */}
+      <div className={`bg-cream/95 backdrop-blur-md px-4 ${isDesktop ? 'pt-3 pb-2' : 'pt-4 pb-2'} z-20`}>
+        {!isDesktop && (
+          <div className="flex items-center justify-between mb-2">
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 rounded-lg bg-terracotta/10 flex items-center justify-center text-terracotta">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" fill="none" opacity="0.3"/></svg>
+              </div>
+              <h1 className="text-xl font-bold text-warmgray tracking-tight">Hangout</h1>
             </div>
-            <h1 className="text-xl font-bold text-warmgray tracking-tight">Hangout</h1>
+            <div className="flex items-center gap-2">
+              <button onClick={onShowPrivacy} className="w-8 h-8 rounded-full bg-stone/50 flex items-center justify-center text-warmgray hover:bg-stone/70 transition-colors">
+                {Icons.privacy}
+              </button>
+              <button onClick={onShowPrivacy} className="w-8 h-8 rounded-full bg-moss flex items-center justify-center text-white text-xs font-bold hover:bg-moss/90 transition-colors">
+                V
+              </button>
+            </div>
           </div>
-          <div className="flex items-center gap-2">
-            <button onClick={onShowPrivacy} className="w-8 h-8 rounded-full bg-stone/50 flex items-center justify-center text-warmgray">
-              {Icons.privacy}
-            </button>
-            <button onClick={onShowPrivacy} className="w-8 h-8 rounded-full bg-moss flex items-center justify-center text-white text-xs font-bold">
-              V
+        )}
+        {isDesktop && (
+          <div className="flex items-center justify-between mb-2">
+            <h2 className="text-base font-semibold text-warmgray">Friends Map</h2>
+            <button
+              onClick={onCheckIn}
+              className="px-4 py-2 rounded-lg bg-terracotta text-white text-xs font-medium flex items-center gap-1.5 shadow-sm hover:bg-terracotta/90 transition-colors"
+            >
+              {Icons.camera} Check in
             </button>
           </div>
-        </div>
+        )}
         <div className="flex gap-2">
           {['friends', 'circles', 'both'].map(f => (
             <button

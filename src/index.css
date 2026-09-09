@@ -63,6 +63,44 @@ body { font-family: 'Inter', system-ui, sans-serif; background: #FAF7F2; margin:
   100% { transform: translate(-50%,-50%) scale(2.5); opacity: 0; }
 }
 
+/* Smooth hover transitions for interactive elements */
+button, a {
+  transition: transform 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+/* Better focus states for accessibility */
+button:focus-visible {
+  outline: 2px solid #5C6B4F;
+  outline-offset: 2px;
+}
+
+/* Card hover effect */
+.card-hover {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+/* Smooth scrollbar for desktop */
+@media (min-width: 768px) {
+  ::-webkit-scrollbar {
+    display: block;
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #D4CFC7;
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #B8B2A8;
+  }
+}
+
 /* Scrollbar */
 ::-webkit-scrollbar { display: none; }
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }

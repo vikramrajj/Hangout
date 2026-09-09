@@ -52,7 +52,7 @@ export default function CirclesView() {
           <div
             key={circle.id}
             onClick={() => setSelectedCircle(circle)}
-            className="bg-white rounded-2xl p-4 mb-3 shadow-sm cursor-pointer active:scale-[0.98] transition-transform"
+            className="bg-white rounded-2xl p-4 mb-3 shadow-sm cursor-pointer card-hover active:scale-[0.98]"
           >
             <div className="flex items-start gap-3">
               <div className="w-12 h-12 rounded-xl bg-stone/30 flex items-center justify-center text-xl shrink-0">
